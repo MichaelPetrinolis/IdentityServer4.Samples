@@ -138,7 +138,7 @@ function callApi() {
                 wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
             });
         };
-        xhr.open("GET", "http://localhost:5412/66d3a8c4-d546-4a02-94a5-2a25d0f8f103/api/rooms", true);
+        xhr.open("GET", "http://localhost:5412/api/66d3a8c4-d546-4a02-94a5-2a25d0f8f103/rooms", true);
         xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
         xhr.send();
     });
