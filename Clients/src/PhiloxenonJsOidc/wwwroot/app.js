@@ -138,7 +138,10 @@ function callWeb() {
                 wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
             });
         };
-        xhr.open("GET", "http://localhost:5412/api/66d3a8c4-d546-4a02-94a5-2a25d0f8f103/rooms", true);
+
+        let tenant = "4e165231-0022-4ad8-b075-0a1288cb76ad";
+
+        xhr.open("GET", `http://localhost:5412/api/${tenant}/rooms`, true);
         xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
         xhr.send();
     });
