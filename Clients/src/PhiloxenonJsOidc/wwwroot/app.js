@@ -111,6 +111,39 @@ function revoke() {
     mgr.revokeAccessToken();
 }
 
+function callWeb() {
+    mgr.getUser().then(function (user) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function (e) {
+            if (xhr.status >= 400) {
+                display("#ajax-result", {
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
+                });
+            }
+            else {
+                display("#ajax-result", xhr.response);
+            }
+        };
+        xhr.onerror = function () {
+            if (xhr.status === 401) {
+                mgr.removeToken();
+                showTokens();
+            }
+
+            display("#ajax-result", {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
+            });
+        };
+        xhr.open("GET", "http://localhost:5412/api/66d3a8c4-d546-4a02-94a5-2a25d0f8f103/rooms", true);
+        xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
+        xhr.send();
+    });
+}
+
 function callApi() {
     mgr.getUser().then(function (user) {
         var xhr = new XMLHttpRequest();
@@ -155,5 +188,6 @@ if (window.location.hash) {
 });
 
 document.querySelector(".call").addEventListener("click", callApi, false);
+document.querySelector(".callweb").addEventListener("click", callWeb, false);
 document.querySelector(".revoke").addEventListener("click", revoke, false);
 document.querySelector(".logout").addEventListener("click", logout, false);
