@@ -43,7 +43,7 @@ namespace PhiloxenonDemoClientCredentialsFlow
                 var header = parts[0];
                 var claims = parts[1];
                 var claimValues = JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims)));
-                tenant = claimValues.Value<string>("client_philoxenon_tenant");
+                tenant = claimValues.Value<string>("client_philoxenon_demo");
             }
             "Press enter to call service".ConsoleYellow();
             Console.ReadLine();
@@ -62,7 +62,7 @@ namespace PhiloxenonDemoClientCredentialsFlow
 
         static async Task CallServiceAsync(string token, string tenant)
         {
-            var baseAddress = $"http://localhost:5412/{tenant}/api/";
+            var baseAddress = $"http://localhost:5412/api/{tenant}/";
 
             var client = new HttpClient
             {
