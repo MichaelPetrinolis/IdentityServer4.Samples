@@ -43,7 +43,7 @@ namespace PhiloxenonDemoClientCredentialsFlow
                 var header = parts[0];
                 var claims = parts[1];
                 var claimValues = JObject.Parse(Encoding.UTF8.GetString(Base64Url.Decode(claims)));
-                tenant = claimValues.Value<string>("client_philoxenon_demo");
+                tenant = claimValues.Value<string>("client_philoxenon_tenant");
             }
             "Press enter to call service".ConsoleYellow();
             Console.ReadLine();
